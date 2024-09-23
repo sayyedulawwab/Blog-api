@@ -1,7 +1,6 @@
 ﻿using Blog.Domain.Abstractions;
 
 namespace Blog.Domain.Users;
-
 public static class UserErrors
 {
     public static Error AlreadyExists = new(

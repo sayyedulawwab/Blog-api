@@ -3,11 +3,13 @@ using Blog.Application.Posts.DeletePost;
 using Blog.Application.Posts.EditPost;
 using Blog.Application.Posts.GetPosts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.API.Controllers.Posts;
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class PostsController : ControllerBase
 {
     private readonly ISender _sender;
@@ -17,6 +19,7 @@ public class PostsController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetPosts(CancellationToken cancellationToken)
     {
         var query = new GetPostsQuery();

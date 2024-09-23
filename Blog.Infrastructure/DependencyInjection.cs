@@ -1,14 +1,16 @@
-﻿using Blog.Application.Abstractions.Clock;
+﻿using Blog.Application.Abstractions.Auth;
+using Blog.Application.Abstractions.Clock;
 using Blog.Domain.Posts;
 using Blog.Domain.Users;
+using Blog.Infrastructure.Auth;
 using Blog.Infrastructure.Clock;
 using Blog.Infrastructure.Data;
 using Blog.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization;
-
 
 namespace Blog.Infrastructure;
 public static class DependencyInjection
@@ -39,6 +41,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         BsonSerializer.RegisterSerializer(new PostIdSerializer());
         BsonSerializer.RegisterSerializer(new UserIdSerializer());
@@ -47,6 +50,15 @@ public static class DependencyInjection
 
     private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
     {
-       
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+
+        services.ConfigureOptions<JwtOptionsSetup>();
+
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+        services.AddSingleton<IJwtService, JwtService>();
+        services.AddSingleton<IAuthService, AuthService>();
     }
 }

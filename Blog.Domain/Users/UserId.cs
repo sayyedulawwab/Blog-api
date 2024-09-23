@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Blog.Domain.Posts;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
 namespace Blog.Domain.Users;
@@ -19,3 +20,5 @@ public sealed class UserId
 
     public override string ToString() => Value.ToString();
 }
+
+

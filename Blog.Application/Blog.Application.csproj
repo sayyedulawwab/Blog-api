@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Users\Register\RegisterUserCommandHandler.cs~RF92dd79.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
